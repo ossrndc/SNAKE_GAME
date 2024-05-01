@@ -35,7 +35,7 @@ class WelcomeScreen:
 class Apple:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = oss.image.load("resources/apple.jpg.png").convert()
+        self.image = oss.image.load("./apple.jpg.png").convert()
         self.x = 120
         self.y = 120
 
@@ -50,7 +50,7 @@ class Apple:
 class Snake:
     def __init__(self, parent_screen):
         self.parent_screen = parent_screen
-        self.image = oss.image.load("resources/block.jpg.png").convert()
+        self.image = oss.image.load("./block.jpg.png").convert()
         self.direction = 'down'
 
         self.length = 1
@@ -94,7 +94,6 @@ class Snake:
 
     def increase_length(self):
         #increase length of the snake
-        //
 
 class PLAY:
     def __init__(self):
@@ -111,14 +110,14 @@ class PLAY:
         self.speed=0.25
 
     def play_background_music(self):
-        oss.mixer.music.load("resources/enigma-dream-170618.mp3")
+        oss.mixer.music.load("./enigma-dream-170618.mp3")
         oss.mixer.music.play(-1, 0)
 
     def play_sound(self, sound_name):
         if sound_name == 'beep':
-            sound = oss.mixer.Sound("resources/beep.mp3.mp3")
+            sound = oss.mixer.Sound("./beep.mp3.mp3")
         elif sound_name == 'beep':
-            sound = oss.mixer.Sound("resources/beep.mp3.mp3")
+            sound = oss.mixer.Sound("./beep.mp3.mp3")
 
         oss.mixer.Sound.play(sound)
 
@@ -128,18 +127,19 @@ class PLAY:
 
     def is_collision(self, x1, y1, x2, y2):
         #add collision of snake on  boundary
+        if (x1==x2 and y1==y2):
+            return True
+        return False
 
     def is_out_of_bounds(self):
-        if(
-            self.snake.x[0]<0
+        if (self.snake.x[0]<0
             or self.snake.x[0]>=1000
             or self.snake.y[0]<0
-            or self.snake.y[0]>=800
-        ):
+            or self.snake.y[0]>=800):
             return True
         return False
     def render_background(self):
-        bg = oss.image.load("resources/background.jpg.jpg")
+        bg = oss.image.load("./background.jpg.jpg")
         self.surface.blit(bg, (0,0))
 
     def play(self):
@@ -227,6 +227,8 @@ class PLAY:
 if __name__ == '__main__':
     oss.init()
     surface = oss.display.set_mode((1000, 800))
+    oss.display.set_caption('Snake Game')
+    oss.display.set_icon(oss.image.load(r"./game_icon.png"))
     welcome = WelcomeScreen(surface)
     welcome.show_welcome()
     welcome.wait_for_key()
