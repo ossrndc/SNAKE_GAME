@@ -44,8 +44,8 @@ class Apple:
         oss.display.flip()
 
     def move(self):
-        self.x = random.randint(1,16)*SIZE
-        self.y = random.randint(1,13)*SIZE
+        self.x = random.randint(1,15)*SIZE
+        self.y = random.randint(1,12)*SIZE
 
 class Snake:
     def __init__(self, parent_screen):
@@ -154,10 +154,15 @@ class PLAY:
     def reset(self):
         self.snake = Snake(self.surface)
         self.apple = Apple(self.surface)
+        self.speed = 0.25
+    
+    def increase_speed(self):
+        if self.speed>0.04:
+            self.speed-=0.03
 
     def is_collision(self, x1, y1, x2, y2):
         #add collision of snake on  boundary
-        if (x1==y1==x2==y2):
+        if (x1==x2 and y1==y2):
             return True
         return False
 
@@ -183,6 +188,8 @@ class PLAY:
             self.play_sound("beep")
             self.snake.increase_length()
             self.apple.move()
+            if self.snake.length%5==0:
+                self.increase_speed()
             # print("APPLE:-",self.apple.x, self.apple.y)
 
         if self.is_out_of_bounds():
