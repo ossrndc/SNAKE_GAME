@@ -93,8 +93,9 @@ class Snake:
         oss.display.flip()
 
     def increase_length(self):
-        #increase length of the snake
-        //
+        self.length += 1
+        self.x.append(self.x[-1])  
+        self.y.append(self.y[-1])
 
 class PLAY:
     def __init__(self):
