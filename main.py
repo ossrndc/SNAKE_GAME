@@ -8,7 +8,7 @@ SIZE = 60
 BACKGROUND_COLOR = (52, 235, 82)
 
 class WelcomeScreen:
-    def __init__(self, surface):
+    def _init_(self, surface):
         self.surface = surface
 
     def show_welcome(self):
@@ -33,7 +33,7 @@ class WelcomeScreen:
                         oss.quit()
                         self.exit()
 class Apple:
-    def __init__(self, parent_screen):
+    def _init_(self, parent_screen):
         self.parent_screen = parent_screen
         self.image = oss.image.load("resources/apple.jpg.png").convert()
         self.x = 120
@@ -48,7 +48,7 @@ class Apple:
         self.y = random.randint(1,13)*SIZE
 
 class Snake:
-    def __init__(self, parent_screen):
+    def _init_(self, parent_screen):
         self.parent_screen = parent_screen
         self.image = oss.image.load("resources/block.jpg.png").convert()
         self.direction = 'down'
@@ -93,11 +93,12 @@ class Snake:
         oss.display.flip()
 
     def increase_length(self):
-        #increase length of the snake
-        //
+        self.length += 1
+        self.x.append(-1)
+        self.y.append(-1)
 
 class PLAY:
-    def __init__(self):
+    def _init_(self):
         oss.init()
 
         oss.mixer.init()
@@ -127,7 +128,10 @@ class PLAY:
         self.apple = Apple(self.surface)
 
     def is_collision(self, x1, y1, x2, y2):
-        #add collision of snake on  boundary
+        if x1 >= x2 and x1 < x2 + SIZE:
+            if y1 >= y2 and y1 < y2 + SIZE:
+                return True
+        return False
 
     def is_out_of_bounds(self):
         if(
@@ -215,7 +219,10 @@ class PLAY:
 
                 if not pause:
                     self.play()
-                    
+                    if self.snake.length>5 and self.snake.length<11:
+                        self.speed = 0.1
+                    elif self.snake.length>11:
+                        self.speed = 0.01
 
             except Exception as e:
                 self.show_game_over()
@@ -224,7 +231,7 @@ class PLAY:
 
             time .sleep(self.speed)
 
-if __name__ == '__main__':
+if _name_ == '_main_':
     oss.init()
     surface = oss.display.set_mode((1000, 800))
     welcome = WelcomeScreen(surface)
@@ -232,4 +239,3 @@ if __name__ == '__main__':
     welcome.wait_for_key()
     game = PLAY()
     game.run()
-   
