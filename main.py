@@ -93,8 +93,9 @@ class Snake:
         oss.display.flip()
 
     def increase_length(self):
-        #increase length of the snake
-        //
+        self.length += 1
+        self.x.append(self.x[-1])  
+        self.y.append(self.y[-1])
 
 class PLAY:
     def __init__(self):
@@ -127,7 +128,9 @@ class PLAY:
         self.apple = Apple(self.surface)
 
     def is_collision(self, x1, y1, x2, y2):
-        #add collision of snake on  boundary
+         if x1 == x2 and y1 == y2:
+            return True
+        return False
 
     def is_out_of_bounds(self):
         if(
