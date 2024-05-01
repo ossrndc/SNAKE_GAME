@@ -157,8 +157,12 @@ class PLAY:
         self.speed = 0.25
     
     def increase_speed(self):
-        if self.speed>0.04:
-            self.speed-=0.03
+        if self.snake.length == 5:
+            self.speed = 0.1
+        elif self.snake.length == 10:
+            self.speed = 0.05
+        elif self.snake.length == 15:
+            self.speed = 0.01
 
     def is_collision(self, x1, y1, x2, y2):
         #add collision of snake on  boundary
